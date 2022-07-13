@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2eb9ae09.css",
+    "main.js": "/static/js/main.6e57173e.js",
+    "static/media/appointment.png": "/static/media/appointment.9fe25641e624ce14b54d.png",
+    "static/media/bg.png": "/static/media/bg.33b42bf92e2d9dd33b67.png",
+    "static/media/treatment.png": "/static/media/treatment.4663af1929c734cd3854.png",
+    "static/media/chair.png": "/static/media/chair.3ca333d1fa050f6e6eb4.png",
+    "static/media/footer.png": "/static/media/footer.ab72a8ce6f0f9ba6a9b9.png",
+    "static/media/doctor.png": "/static/media/doctor.0a279a5b65e8258865bf.png",
+    "static/media/phone.svg": "/static/media/phone.d209af101746c197bf18431f6abcd924.svg",
+    "static/media/clock.svg": "/static/media/clock.73e009544fdec7bdec5957fad2c5fe12.svg",
+    "index.html": "/index.html",
+    "static/media/quote.svg": "/static/media/quote.15ec7af3da2180a133ab50284b562ed5.svg",
+    "static/media/marker.svg": "/static/media/marker.cd9a41f6905bbe0b6a07d13feebbc8d4.svg",
+    "main.2eb9ae09.css.map": "/static/css/main.2eb9ae09.css.map",
+    "main.6e57173e.js.map": "/static/js/main.6e57173e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2eb9ae09.css",
+    "static/js/main.6e57173e.js"
+  ]
+}
