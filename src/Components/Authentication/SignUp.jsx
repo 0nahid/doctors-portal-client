@@ -5,11 +5,11 @@ import toast from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useToken from '../Hooks/useToken';
 import Loading from '../Shared/Loading/Loading';
 
 export default function SignUp() {
     const { register, formState: { errors }, handleSubmit } = useForm();
-
     const [
         createUserWithEmailAndPassword,
         cUser,
@@ -20,23 +20,23 @@ export default function SignUp() {
     const [updateProfile, updating, uError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
-
+    const [token] = useToken(cUser || gUser);
 
     let signUpError;
     if (gError || cError || uError) {
         signUpError = <p className="text-error">{gError?.message || cError?.message || uError?.message}</p>
     }
     const onSubmit = async (data) => {
-        // console.log(data)
         await createUserWithEmailAndPassword(data.mail, data.password)
         await updateProfile({ displayName: data.displayName })
-        navigate('/ ')
+        // navigate('/ ')
         toast(`Welcome ${data.displayName}! You are now registered. ${data.mail} check your email/spambox to verify your account.`, {
             icon: '⚠️',
         });
+
     };
-    if (gUser || cUser) {
-        console.log(gUser || cUser);
+    if (token) {
+        navigate('/appointment');
     }
     if (cLoading || gLoading || updating) {
         <Loading />

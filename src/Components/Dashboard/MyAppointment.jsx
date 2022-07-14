@@ -10,7 +10,7 @@ export default function MyAppointment() {
     const [loading, setLoading] = useState(true)
     const [myappointments, setMyappointments] = useState([])
     useEffect(() => {
-        axios(`https://doctors-portal-web-app.herokuapp.com/api/bookings?email=${user?.email}`)
+        axios(`http://localhost:5500/api/bookings?email=${user?.email}`)
             .then(data => {
                 setMyappointments(data.data)
                 setLoading(false)
