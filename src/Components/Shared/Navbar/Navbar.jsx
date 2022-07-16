@@ -14,6 +14,7 @@ export default function Navbar() {
             position: "bottom-right",
             autoClose: 5000,
         });
+        localStorage.removeItem("accessToken");
         navigate("/");
     };
     const Navmenu = (

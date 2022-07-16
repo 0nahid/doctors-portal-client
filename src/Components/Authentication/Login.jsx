@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from "../../firebase.init";
+import useToken from '../Hooks/useToken';
 import Loading from '../Shared/Loading/Loading';
 export default function Login() {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
@@ -17,8 +18,9 @@ export default function Login() {
     ] = useSignInWithEmailAndPassword(auth);
     const navigate = useNavigate();
     const location = useLocation();
-
     let from = location.state?.from?.pathname || "/";
+    const [token] = useToken(gUser || sUser)
+
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -26,14 +28,14 @@ export default function Login() {
         signInWithEmailAndPassword(data.mail, data.password);
     };
 
-    useEffect(()=>{
-        if (gUser || sUser || user) {
+    useEffect(() => {
+        if (token) {
             navigate(from, { replace: true });
             toast.success(`Welcome Back, ${auth?.currentUser?.displayName}`, {
                 autoClose: 4000,
             })
         }
-    },[from, gUser, sUser, user, navigate])
+    }, [from, token, navigate])
 
 
     let signInError;
