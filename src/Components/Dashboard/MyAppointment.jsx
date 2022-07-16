@@ -1,11 +1,14 @@
 import axios from 'axios'
+import { signOut } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router-dom'
 import auth from '../../firebase.init'
 import Loader from '../Shared/Loader/Loader'
 
 export default function MyAppointment() {
     const [user] = useAuthState(auth)
+    const navigate = useNavigate()
     // console.log(user?.email);
     const [loading, setLoading] = useState(true)
     const [myappointments, setMyappointments] = useState([])
@@ -20,9 +23,15 @@ export default function MyAppointment() {
             .then(data => {
                 setMyappointments(data.data)
                 setLoading(false)
-            })
+            }).catch(err => {
+                if (err.response.status === 401) {
+                    signOut(auth)
+                    localStorage.removeItem("accessToken");
+                    navigate('/login')
+                }
+            });
 
-    }, [user?.email])
+    }, [user?.email, navigate])
     return (
         <>
             {

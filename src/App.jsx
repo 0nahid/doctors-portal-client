@@ -5,6 +5,7 @@ import Appointment from './Components/Appointment/Appointment'
 import Login from './Components/Authentication/Login'
 import RequiredAuth from './Components/Authentication/RequiredAuth'
 import SignUp from './Components/Authentication/SignUp'
+import AllUsers from './Components/Dashboard/AllUsers'
 import Dashboard from './Components/Dashboard/Dashboard'
 import MyAppointment from './Components/Dashboard/MyAppointment'
 import MyReview from './Components/Dashboard/MyReview'
@@ -33,18 +34,11 @@ export default function App() {
         }
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/appointment" element={
-            <RequiredAuth>
-              <Appointment />
-            </RequiredAuth>
-          } />
-          <Route path="/dashboard" element={
-            <RequiredAuth>
-              <Dashboard />
-            </RequiredAuth>
-          } >
+          <Route path="/appointment" element={<RequiredAuth><Appointment /></RequiredAuth>} />
+          <Route path="/dashboard" element={<RequiredAuth><Dashboard /></RequiredAuth>} >
             <Route index element={<MyAppointment />} />
             <Route path="review" element={<MyReview />} />
+            <Route path="users" element={<AllUsers />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

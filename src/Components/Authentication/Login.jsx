@@ -40,6 +40,9 @@ export default function Login() {
 
     if (user) {
         navigate(from, { replace: true });
+        // toast.success(`Welcome Back, ${auth?.currentUser?.displayName}`, {
+        //     autoClose: 4000,
+        // })
     }
     let signInError;
     (gError || sError) ?
