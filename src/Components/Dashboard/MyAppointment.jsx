@@ -9,8 +9,14 @@ export default function MyAppointment() {
     // console.log(user?.email);
     const [loading, setLoading] = useState(true)
     const [myappointments, setMyappointments] = useState([])
+    // const aceessToken = localStorage.getItem('aceessToken')
+    // console.log(aceessToken);
     useEffect(() => {
-        axios(`http://localhost:5500/api/bookings?email=${user?.email}`)
+        axios.get(`http://localhost:5500/api/bookings?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('aceessToken')}`
+            }
+        })
             .then(data => {
                 setMyappointments(data.data)
                 setLoading(false)
@@ -35,7 +41,7 @@ export default function MyAppointment() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {myappointments.map((appointment, index) => (
+                                {myappointments?.map((appointment, index) => (
                                     <tr key={appointment?._id}>
                                         <td>{index + 1}</td>
                                         <td>{appointment?.name}</td>

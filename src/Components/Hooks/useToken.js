@@ -9,7 +9,7 @@ const useToken = user => {
         if (email) {
             axios.put(`http://localhost:5500/api/user/${email}`, currentUser)
                 .then(res => {
-                    console.log(res?.data)
+                    // console.log(res?.data)
                     const aceessToken = res?.data?.token;
                     localStorage.setItem('aceessToken', aceessToken);
                     setToken(aceessToken);
