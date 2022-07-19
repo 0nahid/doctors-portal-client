@@ -14,7 +14,7 @@ export default function AvailableAppointment({ date }) {
     const [loading] = useAuthState(auth)
     const [treatment, setTreatment] = useState(null)
     const formattedDate = format(date, 'PP');
-    const { data: services, refetch, isLoading } = useQuery(['available', formattedDate], () => axios.get(`http://localhost:5500/api/available?date=${formattedDate}`)
+    const { data: services, refetch, isLoading } = useQuery(['available', formattedDate], () => axios.get(`https://doctors-portal-web-app.herokuapp.com/api/available?date=${formattedDate}`)
 
     );
     if (isLoading || loading) {

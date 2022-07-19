@@ -5,12 +5,12 @@ import Loader from '../Shared/Loader/Loader';
 import Loading from '../Shared/Loading/Loading';
 import Users from './Users';
 export default function AllUsers() {
-    const { data: users, isLoading, refetch } = useQuery(['available'], () => axios.get(`http://localhost:5500/api/users`, 
-    {
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('aceessToken')}`
+    const { data: users, isLoading, refetch } = useQuery(['available'], () => axios.get(`https://doctors-portal-web-app.herokuapp.com/api/users`,
+        {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('aceessToken')}`
+            }
         }
-    }
     ))
     // console.log(users?.data);
 
