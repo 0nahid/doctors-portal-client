@@ -6,7 +6,9 @@ import auth from "../../../firebase.init";
 
 export default function Navbar() {
     const [user] = useAuthState(auth)
+
     // console.log(user);
+
     const navigate = useNavigate();
     const logout = () => {
         signOut(auth);
@@ -27,6 +29,7 @@ export default function Navbar() {
             {
                 user && <Link to="/dashboard">Dashboard</Link>
             }
+            
 
         </li>
     )
