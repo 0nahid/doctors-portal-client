@@ -15,7 +15,7 @@ export default function MyAppointment() {
     // const aceessToken = localStorage.getItem('aceessToken')
     // console.log(aceessToken);
     useEffect(() => {
-        axios.get(`https://doctors-portal-web-app.herokuapp.com/api/bookings?email=${user?.email}`, {
+        axios.get(`http://localhost:5500/api/bookings?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
             }

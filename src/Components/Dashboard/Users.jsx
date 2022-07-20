@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 export default function Users({ user, index, refetch }) {
     const makeAdmin = (email) => {
-        fetch(`https://doctors-portal-web-app.herokuapp.com/user/admin/${email}`, {
+        fetch(`http://localhost:5500/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
