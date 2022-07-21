@@ -12,7 +12,7 @@ export default function AddDcotors() {
     const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgbbApi}`
 
     const onSubmit = async data => {
-        console.log(data);
+        // console.log(data);
         const image = data.image[0]
         const formData = new FormData();
         formData.append('image', image);

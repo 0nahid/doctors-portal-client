@@ -14,6 +14,7 @@ export default function BookingModal({ treatment, date, setTreatment, refetch })
         e.preventDefault();
         const slot = e.target.slot.value;
         const name = treatment?.name;
+        const price = treatment?.price;
         const userName = user.displayName;
         const email = user?.email;
         // const email = e.target.email.value;
@@ -25,6 +26,7 @@ export default function BookingModal({ treatment, date, setTreatment, refetch })
             phone,
             slot,
             formattedDate,
+            price,
             treatment: _id
         }
         // console.log(data);

@@ -12,6 +12,7 @@ import Dashboard from './Components/Dashboard/Dashboard'
 import ManageDoctors from './Components/Dashboard/ManageDoctors'
 import MyAppointment from './Components/Dashboard/MyAppointment'
 import MyReview from './Components/Dashboard/MyReview'
+import Payment from './Components/Dashboard/Payment'
 import Home from './Components/Home/Home'
 import Loader from './Components/Shared/Loader/Loader'
 import Navbar from './Components/Shared/Navbar/Navbar'
@@ -43,7 +44,8 @@ export default function App() {
             <Route path="review" element={<MyReview />} />
             <Route path="users" element={<RequiredAdmin><AllUsers /></RequiredAdmin>} />
             <Route path="addDoctors" element={<RequiredAdmin><AddDcotors /></RequiredAdmin>} />
-            <Route path="manageDoctors" element={<RequiredAdmin><ManageDoctors /></RequiredAdmin>} />
+            <Route path="manageDoctors" element={<RequiredAdmin><ManageDoctors /></RequiredAdmin>} /> 
+            <Route path="payment/:id" element={<RequiredAdmin><Payment /></RequiredAdmin>} /> 
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

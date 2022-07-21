@@ -1,5 +1,5 @@
 export default function Service({ service, setTreatment }) {
-    const { _id, name, slots } = service;
+    const { price, name, slots } = service;
     // console.log(_id, name);
     return (
         <div className="card w-96 bg-base-100 shadow-2xl text-center">
@@ -16,6 +16,7 @@ export default function Service({ service, setTreatment }) {
                 </p>
                 <p className="uppercase font-semibold">{slots.length} {slots.length > 1 ? 'spaces' : 'space'} avialable</p>
                 <p>{slots[0]}</p>
+                <p className="font-bold">Price {price} $ </p>
                 <div className="card-actions justify-center">
                     <label htmlFor="booking-modal"
                         disabled={slots.length === 0}

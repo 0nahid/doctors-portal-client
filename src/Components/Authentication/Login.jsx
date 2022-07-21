@@ -9,7 +9,7 @@ import useToken from '../Hooks/useToken';
 import Loading from '../Shared/Loading/Loading';
 export default function Login() {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
-    const [user, loading] = useAuthState(auth)
+    const [user] = useAuthState(auth)
     const [
         signInWithEmailAndPassword,
         sUser,

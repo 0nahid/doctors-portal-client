@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
+import Loader from '../Shared/Loader/Loader';
 import Loading from '../Shared/Loading/Loading';
 import Doctors from './Doctors';
 
@@ -23,30 +24,34 @@ export default function ManageDoctors() {
             authorization: `Bearer ${localStorage.getItem('aceessToken')}`
         }
     }))
-    console.log(doctors?.data);
+    // console.log(doctors?.data);
     if (isLoading) return <Loading />
     return (
-        <div>
-            <h1>Manage all the {doctors?.data?.length} Doctors from here</h1>
-            <div class="overflow-x-auto w-full">
-                <table class="table w-full">
-                    <thead>
-                        <tr>
-                            <th>SL.</th>
-                            <th>Name</th>
-                            <th>Speciality</th>
-                            <th>Email</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {doctors?.data?.map((user, index) => (
-                            <Doctors user={user} key={user?._id} index={index} refetch={refetch} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div >
+        <>
+            {!isLoading ? (<div>
+                <h1>Manage all the {doctors?.data?.length} Doctors from here</h1>
+                <div class="overflow-x-auto w-full">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th>SL.</th>
+                                <th>Name</th>
+                                <th>Speciality</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {doctors?.data?.map((user, index) => (
+                                <Doctors user={user} key={user?._id} index={index} refetch={refetch} />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div >) : (
+                <Loader />
+            )}
+        </>
 
     )
 }
