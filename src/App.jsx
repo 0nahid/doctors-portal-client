@@ -44,8 +44,8 @@ export default function App() {
             <Route path="review" element={<MyReview />} />
             <Route path="users" element={<RequiredAdmin><AllUsers /></RequiredAdmin>} />
             <Route path="addDoctors" element={<RequiredAdmin><AddDcotors /></RequiredAdmin>} />
-            <Route path="manageDoctors" element={<RequiredAdmin><ManageDoctors /></RequiredAdmin>} /> 
-            <Route path="payment/:id" element={<RequiredAdmin><Payment /></RequiredAdmin>} /> 
+            <Route path="manageDoctors" element={<RequiredAdmin><ManageDoctors /></RequiredAdmin>} />
+            <Route path="payment/:id" element={<Payment />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
