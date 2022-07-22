@@ -10,7 +10,7 @@ import Loader from '../Shared/Loader/Loader'
 import CheckoutForm from './CheckoutForm'
 
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`)
-
+console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 
 export default function Payment() {
@@ -40,7 +40,7 @@ export default function Payment() {
       <div className="card flex-shrink-0 w-50 max-w-md bg-base-100 shadow-2xl">
         <div className="card-body">
           <Elements stripe={stripePromise}>
-            <CheckoutForm id={id} />
+            <CheckoutForm id={id} price={price} />
           </Elements>
         </div>
       </div>

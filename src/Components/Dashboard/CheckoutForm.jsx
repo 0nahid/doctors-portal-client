@@ -1,24 +1,37 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-export default function CheckoutForm({ id }) {
+export default function CheckoutForm({ id, price }) {
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('')
+    const [clientSecret, setClientSecret] = useState('')
 
+    useEffect(() => {
+        axios.post(`http://localhost:5500/create-payment-intent`, {
+            price: price
+        }, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('aceessToken')}`
+            }
+        }).then(res => {
+            if(res.data?.clientSecret){
+                setClientSecret(res.data.clientSecret)
+            }
+        })
+    }, [price])
+
+    // console.log(clientSecret);
     const handleSubmit = async (event) => {
         // Block native form submission.
         event.preventDefault();
-        event.reset();
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
             return;
         }
-
         // Get a reference to a mounted CardElement. Elements knows how
         // to find your CardElement because there can only ever be one of
         // each type of element.
@@ -41,15 +54,6 @@ export default function CheckoutForm({ id }) {
         } else {
             console.log('[PaymentMethod]', paymentMethod);
             toast.success('Payment Successful')
-            axios.post(`http://localhost:5500/api/booking/payment/${id}`, paymentMethod, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('aceessToken')}`
-                }
-            })
-                .then(res => {
-                    console.log(res);
-                }
-                )
         }
     };
 
@@ -71,7 +75,7 @@ export default function CheckoutForm({ id }) {
                     },
                 }}
             />
-            <button class="btn btn-info btn-sm mt-5" type="submit" disabled={!stripe}>
+            <button class="btn btn-info btn-sm mt-5" type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button>
             {cardError && <p className="text-error">{cardError}</p>}

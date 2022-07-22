@@ -43,7 +43,6 @@ export default function MyAppointment() {
                                 <tr>
                                     <th></th>
                                     <th>Appointment Name</th>
-
                                     {/* <th>Email</th> */}
                                     <th>Appointment Date</th>
                                     <th>Appointment Schedule</th>
