@@ -1,14 +1,13 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
-export default function CheckoutForm({ id, price }) {
+export default function CheckoutForm({ id, price, userName, email }) {
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [clientSecret, setClientSecret] = useState('')
-
+    const [success, setSuccess] = useState('')
     useEffect(() => {
         axios.post(`http://localhost:5500/create-payment-intent`, {
             price: price
@@ -17,13 +16,13 @@ export default function CheckoutForm({ id, price }) {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
             }
         }).then(res => {
-            if(res.data?.clientSecret){
+            if (res.data?.clientSecret) {
                 setClientSecret(res.data.clientSecret)
             }
         })
     }, [price])
 
-    // console.log(clientSecret);
+    // console.log(userName, email);
     const handleSubmit = async (event) => {
         // Block native form submission.
         event.preventDefault();
@@ -46,14 +45,31 @@ export default function CheckoutForm({ id, price }) {
             type: 'card',
             card,
         });
-
-        if (error) {
-            console.log('[error]', error);
-            setCardError(error.message)
-            toast.error(error.message)
-        } else {
-            console.log('[PaymentMethod]', paymentMethod);
-            toast.success('Payment Successful')
+        // console.log('[error]', error);
+        setCardError(error?.message || '');
+        setSuccess('')
+        // confirm card payment
+        const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: userName,
+                        email: email
+                    },
+                },
+            },
+        );
+        if (intentError) {
+            setCardError(intentError?.message || 'Something went wrong')
+            setSuccess('')
+        }
+        else {
+            setCardError('')
+            console.log(paymentIntent);
+            console.log(paymentMethod);
+            setSuccess('Payment Successful')
         }
     };
 
@@ -79,6 +95,7 @@ export default function CheckoutForm({ id, price }) {
                 Pay
             </button>
             {cardError && <p className="text-error">{cardError}</p>}
+            {success && <p className="text-primary">{success}</p>}
         </form>
     )
 }
