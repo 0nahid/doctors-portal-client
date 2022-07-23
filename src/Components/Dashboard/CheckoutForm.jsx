@@ -1,13 +1,16 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import Swal from 'sweetalert2';
 export default function CheckoutForm({ id, price, userName, email }) {
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [clientSecret, setClientSecret] = useState('')
+    const [transactionId, setTransactionId] = useState('')
     const [success, setSuccess] = useState('')
+    const [processing, setProcessing] = useState(false)
+    // console.log(id, price, userName, email);
     useEffect(() => {
         axios.post(`http://localhost:5500/create-payment-intent`, {
             price: price
@@ -48,6 +51,7 @@ export default function CheckoutForm({ id, price, userName, email }) {
         // console.log('[error]', error);
         setCardError(error?.message || '');
         setSuccess('')
+        setProcessing(true)
         // confirm card payment
         const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
             clientSecret,
@@ -64,12 +68,53 @@ export default function CheckoutForm({ id, price, userName, email }) {
         if (intentError) {
             setCardError(intentError?.message || 'Something went wrong')
             setSuccess('')
+            setProcessing(false)
         }
         else {
             setCardError('')
             console.log(paymentIntent);
-            console.log(paymentMethod);
+            setTransactionId(paymentIntent.id)  // paymentIntent.id
             setSuccess('Payment Successful')
+            // if (paymentIntent.id) {
+            //     Swal.fire({
+            //         title: 'Payment Successful',
+            //         text: `Your payment of ${price} has been successful & your transaction id is ${paymentIntent.id.slice(3)}`,
+            //         icon: 'success',
+            //         confirmButtonText: 'OK'
+            //     }).then(() => {
+            //         // window.location.reload()
+            //         // window.location.href = '/dashboard'
+            //     }
+            //     )
+            // }
+
+            // patch the transaction id to the database
+            const payment = {
+                transactionId: paymentIntent.id,
+                appointmentId: id,
+                email : email,
+            }
+            axios.patch(`http://localhost:5500/api/bookings/${id}`, payment, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('aceessToken')}`
+                }
+            }).then(res => {
+                setProcessing(false)
+                // console.log(res.data)
+                if (res.data.modifiedCount === 1) {
+                    Swal.fire({
+                        title: 'Payment Successful',
+                        text: `Your payment of ${price} $ has been successful & your transaction id is ${paymentIntent.id.slice(3)}`,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        // window.location.reload()
+                        window.location.href = '/dashboard'
+                    }
+                    )
+                }
+
+            });
         }
     };
 
@@ -95,7 +140,6 @@ export default function CheckoutForm({ id, price, userName, email }) {
                 Pay
             </button>
             {cardError && <p className="text-error">{cardError}</p>}
-            {success && <p className="text-primary">{success}</p>}
         </form>
     )
 }
