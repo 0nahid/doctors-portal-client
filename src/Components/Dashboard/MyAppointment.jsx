@@ -48,6 +48,7 @@ export default function MyAppointment() {
                                     <th>Appointment Schedule</th>
                                     <th>Price</th>
                                     <th>Payment</th>
+                                    <th>TrnxId</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +66,6 @@ export default function MyAppointment() {
                                         <td>
 
                                             {appointment?.price ?
-
                                                 appointment?.price && appointment.paid ? <span className="text-green-500">
                                                     <button className="btn btn-sm btn-success text-white font-bold py-2 px-4 rounded">
                                                         Paid
@@ -78,6 +78,9 @@ export default function MyAppointment() {
                                                 :
                                                 <span className="text-green-500">Free</span>}
 
+                                        </td>
+                                        <td>
+                                            {appointment?.transactionId ? <span className="font-bold">{appointment?.transactionId.slice(3)}</span> : <span className="text-green-500">Not Paid</span>}
                                         </td>
                                     </tr>
                                 ))}

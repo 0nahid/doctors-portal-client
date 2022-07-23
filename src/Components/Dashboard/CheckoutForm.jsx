@@ -109,7 +109,7 @@ export default function CheckoutForm({ id, price, userName, email }) {
                         confirmButtonText: 'OK'
                     }).then(() => {
                         // window.location.reload()
-                        window.location.href = '/dashboard'
+                        // window.location.href = '/dashboard'
                     }
                     )
                 }

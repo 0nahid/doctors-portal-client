@@ -38,12 +38,12 @@ export default function Login() {
         }
     }, [from, token, navigate])
 
-    if (user) {
-        navigate(from, { replace: true });
-        // toast.success(`Welcome Back, ${auth?.currentUser?.displayName}`, {
-        //     autoClose: 4000,
-        // })
-    }
+    // if (user) {
+    //     navigate(from, { replace: true });
+    //     toast.success(`Welcome Back, ${auth?.currentUser?.displayName}`, {
+    //         autoClose: 4000,
+    //     })
+    // }
     let signInError;
     (gError || sError) ?
         signInError = <p className='text-red-500'><small>{sError?.message || gError?.message}</small></p> : signInError = ''
