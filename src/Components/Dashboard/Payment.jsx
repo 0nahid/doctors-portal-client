@@ -1,5 +1,5 @@
 import {
-  Elements
+    Elements
 } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import axios from 'axios'
@@ -15,7 +15,7 @@ const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
 
 export default function Payment() {
   const { id } = useParams()
-  const { data: services, isLoading } = useQuery(['payment'], () => axios.get(`http://localhost:5500/api/bookings/${id}`, {
+  const { data: services, isLoading } = useQuery(['payment'], () => axios.get(`https://doctors-portal-web-app.herokuapp.com/api/bookings/${id}`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem('aceessToken')}`
     }
@@ -29,10 +29,10 @@ export default function Payment() {
   return (
     <div>
       <h1>Payment of {id}</h1>
-      <div class="card w-50 bg-base-100 shadow-xl my-12">
-        <div class="card-body">
-          <p class="text-2xl font-semibold">Grettings <span class="text-success">{userName.toUpperCase()}</span> </p>
-          <h2 class="card-title font-bold text-neutral">Pay for {treatmentName?.toUpperCase()}</h2>
+      <div className="card w-50 bg-base-100 shadow-xl my-12">
+        <div className="card-body">
+          <p className="text-2xl font-semibold">Grettings <span className="text-success">{userName.toUpperCase()}</span> </p>
+          <h2 className="card-title font-bold text-neutral">Pay for {treatmentName?.toUpperCase()}</h2>
           <p className='text-xl'>Your Appointmemnt on <span className="text-error">{date} </span> at {slot} </p>
           <p className='text-xl'>Please pay <span className="font-bold text-xl">{price}$</span> </p>
         </div>

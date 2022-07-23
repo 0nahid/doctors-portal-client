@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 export default function Users({ user, index, refetch }) {
     const makeAdmin = (email) => {
-        fetch(`http://localhost:5500/user/admin/${email}`, {
+        fetch(`https://doctors-portal-web-app.herokuapp.com/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
@@ -28,14 +28,14 @@ export default function Users({ user, index, refetch }) {
             <td>{user?.email}</td>
             <td>
                 {user?.role === 'admin' ?
-                    <button class="btn btn-success">Already an admin</button>
+                    <button className="btn btn-success">Already an admin</button>
                     : <button
                         onClick={() => makeAdmin(user?.email)}
-                        class="btn btn-ghost">Make Admin</button>}
+                        className="btn btn-ghost">Make Admin</button>}
             </td>
 
             <td>
-                <button class="btn btn-error">Delete</button>
+                <button className="btn btn-error">Delete</button>
             </td>
 
         </tr>

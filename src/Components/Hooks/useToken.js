@@ -7,7 +7,7 @@ const useToken = user => {
         const email = user?.user?.email;
         const currentUser = { email: email };
         if (email) {
-            axios.put(`http://localhost:5500/api/user/${email}`, currentUser)
+            axios.put(`https://doctors-portal-web-app.herokuapp.com/api/user/${email}`, currentUser)
                 .then(res => {
                     // console.log(res?.data)
                     const aceessToken = res?.data?.token;

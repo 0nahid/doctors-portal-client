@@ -12,7 +12,7 @@ export default function Dashboard() {
 
             <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col  ">
-                <h1 class="text-2xl text-secondary font-bold ">Welcome to dashboard</h1>
+                <h1 className="text-2xl text-secondary font-bold ">Welcome to dashboard</h1>
                 <Outlet />
             </div>
             <div className="drawer-side">

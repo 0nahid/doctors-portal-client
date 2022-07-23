@@ -9,7 +9,7 @@ export default function ManageDoctors() {
 
     // const [doctors, setDoctors] = useState([]);
     // useEffect(() => {
-    //     fetch(`http://localhost:5500/api/doctors`, {
+    //     fetch(`https://doctors-portal-web-app.herokuapp.com/api/doctors`, {
     //         method: 'GET',
     //         headers: {
     //             authorization: `Bearer ${localStorage.getItem('aceessToken')}`
@@ -19,7 +19,7 @@ export default function ManageDoctors() {
     //         .then(res => res.json())
     //         .then(data => console.log(data))
     // }, [])
-    const { data: doctors, isLoading, refetch } = useQuery(['doctors'], () => axios.get(`http://localhost:5500/api/doctors`, {
+    const { data: doctors, isLoading, refetch } = useQuery(['doctors'], () => axios.get(`https://doctors-portal-web-app.herokuapp.com/api/doctors`, {
         headers: {
             authorization: `Bearer ${localStorage.getItem('aceessToken')}`
         }
@@ -30,8 +30,8 @@ export default function ManageDoctors() {
         <>
             {!isLoading ? (<div>
                 <h1>Manage all the {doctors?.data?.length} Doctors from here</h1>
-                <div class="overflow-x-auto w-full">
-                    <table class="table w-full">
+                <div className="overflow-x-auto w-full">
+                    <table className="table w-full">
                         <thead>
                             <tr>
                                 <th>SL.</th>

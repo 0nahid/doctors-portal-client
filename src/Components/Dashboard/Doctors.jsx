@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 export default function Doctors({ user, index, refetch }) {
     const { name, mail, image, speciality } = user;
     const deleteDoctor = (mail) => {
-        fetch(`http://localhost:5500/api/doctors/${mail}`, {
+        fetch(`https://doctors-portal-web-app.herokuapp.com/api/doctors/${mail}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
@@ -30,28 +30,28 @@ export default function Doctors({ user, index, refetch }) {
         <tr>
             <td>{index + 1}</td>
             <td>
-                <div class="flex items-center space-x-3">
-                    <div class="avatar">
-                        <div class="mask mask-circle w-12 h-12">
+                <div className="flex items-center space-x-3">
+                    <div className="avatar">
+                        <div className="mask mask-circle w-12 h-12">
                             <img src={image} alt="Avatar Tailwind CSS Component" />
                         </div>
                     </div>
                     <div>
-                        <div class="font-bold">{name.toUpperCase()}</div>
-                        <div class="text-sm opacity-50">United States</div>
+                        <div className="font-bold">{name.toUpperCase()}</div>
+                        <div className="text-sm opacity-50">United States</div>
                     </div>
                 </div>
             </td>
             <td>
                 Zemlak, Daniel and Leannon
                 <br />
-                <span class="badge badge-ghost badge-sm font-bold">{speciality.toUpperCase()}</span>
+                <span className="badge badge-ghost badge-sm font-bold">{speciality.toUpperCase()}</span>
             </td>
             <td>{mail}</td>
             <th>
                 <button
                     onClick={() => deleteDoctor(mail)}
-                    class="btn btn-error btn-xs">Delete</button>
+                    className="btn btn-error btn-xs">Delete</button>
             </th>
         </tr>
     )

@@ -12,7 +12,7 @@ export default function CheckoutForm({ id, price, userName, email }) {
     const [processing, setProcessing] = useState(false)
     // console.log(id, price, userName, email);
     useEffect(() => {
-        axios.post(`http://localhost:5500/create-payment-intent`, {
+        axios.post(`https://doctors-portal-web-app.herokuapp.com/create-payment-intent`, {
             price: price
         }, {
             headers: {
@@ -92,9 +92,9 @@ export default function CheckoutForm({ id, price, userName, email }) {
             const payment = {
                 transactionId: paymentIntent.id,
                 appointmentId: id,
-                email : email,
+                email: email,
             }
-            axios.patch(`http://localhost:5500/api/bookings/${id}`, payment, {
+            axios.patch(`https://doctors-portal-web-app.herokuapp.com/api/bookings/${id}`, payment, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('aceessToken')}`
                 }
@@ -136,7 +136,7 @@ export default function CheckoutForm({ id, price, userName, email }) {
                     },
                 }}
             />
-            <button class="btn btn-info btn-sm mt-5" type="submit" disabled={!stripe || !clientSecret}>
+            <button className="btn btn-info btn-sm mt-5" type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button>
             {cardError && <p className="text-error">{cardError}</p>}

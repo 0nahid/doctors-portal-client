@@ -30,7 +30,7 @@ export default function BookingModal({ treatment, date, setTreatment, refetch })
             treatment: _id
         }
         // console.log(data);
-        axios.post(`http://localhost:5500/api/bookings`, data)
+        axios.post(`https://doctors-portal-web-app.herokuapp.com/api/bookings`, data)
             .then(res => {
                 // console.log(res.data);
                 // if (res.status === 200) {

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { signOut } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useNavigate ,Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import auth from '../../firebase.init'
 import Loader from '../Shared/Loader/Loader'
 
@@ -15,7 +15,7 @@ export default function MyAppointment() {
     // const aceessToken = localStorage.getItem('aceessToken')
     // console.log(aceessToken);
     useEffect(() => {
-        axios.get(`http://localhost:5500/api/bookings?email=${user?.email}`, {
+        axios.get(`https://doctors-portal-web-app.herokuapp.com/api/bookings?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('aceessToken')}`
             }

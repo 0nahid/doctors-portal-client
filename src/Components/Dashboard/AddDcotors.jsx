@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading/Loading';
 export default function AddDcotors() {
-    const { data: services, isLoading } = useQuery('services', () => axios.get(`http://localhost:5500/api/services`));
+    const { data: services, isLoading } = useQuery('services', () => axios.get(`https://doctors-portal-web-app.herokuapp.com/api/services`));
     // console.log(services.data);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const imgbbApi = 'a243f030b37702a67079d2a90f4a170e'
@@ -25,7 +25,7 @@ export default function AddDcotors() {
                 image: imageUrl,
                 speciality: data.speciality
             }
-            const doctorsData = await axios.post(`http://localhost:5500/api/doctors`, newDoctor, {
+            const doctorsData = await axios.post(`https://doctors-portal-web-app.herokuapp.com/api/doctors`, newDoctor, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('aceessToken')}`
                 }
@@ -90,7 +90,7 @@ export default function AddDcotors() {
                     <label className="label">
                         <span className="label-text">Speciality</span>
                     </label>
-                    <select {...register("speciality")} class="select select-primary w-full max-w-xs">
+                    <select {...register("speciality")} className="select select-primary w-full max-w-xs">
                         {services?.data?.map((service, index) => {
                             return <option key={index} value={service.id}>{service.name}</option>
                         })}
